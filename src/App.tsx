@@ -3,9 +3,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PropertyProvider } from "./context/PropertyContext";
+import { useEffect, useState } from "react";
 
 // Pages
 import Welcome from "./pages/Welcome";
@@ -13,10 +13,26 @@ import PropertyDetail from "./pages/PropertyDetail";
 import ReviewRating from "./pages/ReviewRating";
 import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+
+// Components
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check login status when app loads
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      setIsLoggedIn(user.isLoggedIn);
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <PropertyProvider>
@@ -25,10 +41,53 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Welcome />} />
-              <Route path="/property/:id" element={<PropertyDetail />} />
-              <Route path="/review/:id" element={<ReviewRating />} />
-              <Route path="/payment/:id" element={<Payment />} />
+              <Route path="/login" element={<Login />} />
+              
+              <Route 
+                path="/" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={true}>
+                    <Welcome />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/profile" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={false}>
+                    <Profile />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/property/:id" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={true}>
+                    <PropertyDetail />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/review/:id" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={true}>
+                    <ReviewRating />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/payment/:id" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={true}>
+                    <Payment />
+                  </ProtectedRoute>
+                } 
+              />
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
