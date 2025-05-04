@@ -17,6 +17,7 @@ const ProtectedRoute = ({
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [hasProfile, setHasProfile] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -41,25 +42,32 @@ const ProtectedRoute = ({
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    // Handle redirects and toasts after state is set
+    if (!loading) {
+      if (requireLogin && !isAuthenticated) {
+        toast({
+          title: "Authentication required",
+          description: "Please login to access this page",
+          variant: "destructive",
+        });
+        setShouldRedirect('/login');
+      } else if (requireProfile && !hasProfile) {
+        toast({
+          title: "Profile required",
+          description: "Please complete your profile first",
+        });
+        setShouldRedirect('/profile');
+      }
+    }
+  }, [loading, isAuthenticated, hasProfile, requireLogin, requireProfile, toast]);
+
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
-  if (requireLogin && !isAuthenticated) {
-    toast({
-      title: "Authentication required",
-      description: "Please login to access this page",
-      variant: "destructive",
-    });
-    return <Navigate to="/login" replace />;
-  }
-
-  if (requireProfile && !hasProfile) {
-    toast({
-      title: "Profile required",
-      description: "Please complete your profile first",
-    });
-    return <Navigate to="/profile" replace />;
+  if (shouldRedirect) {
+    return <Navigate to={shouldRedirect} replace />;
   }
 
   return <>{children}</>;
