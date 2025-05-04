@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
-import { CheckIcon, Search, MapPin, ArrowRight } from 'lucide-react';
+import { CheckIcon, Search, MapPin, ArrowRight, Star } from 'lucide-react';
 import { usePropertyContext } from '@/context/PropertyContext';
 import PropertyCard from '@/components/PropertyCard';
 
