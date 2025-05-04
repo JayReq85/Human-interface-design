@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 212 100% 47%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -98,4 +99,34 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer components {
+  .card-hover {
+    @apply transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer;
+  }
+}
+
+.star {
+  @apply inline-block cursor-pointer text-gray-400;
+}
+
+.star.active {
+  @apply text-yellow-400;
+}
+
+.property-image {
+  @apply w-full h-64 object-cover rounded-t-lg;
+}
+
+.nav-link {
+  @apply text-primary hover:text-primary/80 transition-colors;
+}
+
+.button-primary {
+  @apply bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors;
+}
+
+.input-field {
+  @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary;
 }
