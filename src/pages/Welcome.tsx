@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckIcon, Search, MapPin, ArrowRight, Star } from 'lucide-react';
 import { usePropertyContext } from '@/context/PropertyContext';
 import PropertyCard from '@/components/PropertyCard';
-import Navbar from '@/components/Navbar';
 
 const Welcome = () => {
   const { properties } = usePropertyContext();
@@ -39,8 +39,6 @@ const Welcome = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-primary to-blue-700 text-white py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">

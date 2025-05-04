@@ -3,12 +3,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PropertyProvider } from "./context/PropertyContext";
 import { useEffect, useState } from "react";
 
 // Pages
-import Welcome from "./pages/Welcome";
+import Index from "./pages/Index";
 import PropertyDetail from "./pages/PropertyDetail";
 import ReviewRating from "./pages/ReviewRating";
 import Payment from "./pages/Payment";
@@ -47,7 +47,7 @@ const App = () => {
                 path="/" 
                 element={
                   <ProtectedRoute requireLogin={true} requireProfile={true}>
-                    <Welcome />
+                    <Index />
                   </ProtectedRoute>
                 } 
               />

@@ -24,9 +24,18 @@ const ProtectedRoute = ({
     const userData = localStorage.getItem('user');
     
     if (userData) {
-      const user = JSON.parse(userData);
-      setIsAuthenticated(user.isLoggedIn);
-      setHasProfile(user.profileCompleted);
+      try {
+        const user = JSON.parse(userData);
+        setIsAuthenticated(!!user.isLoggedIn);
+        setHasProfile(!!user.profileCompleted);
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+        setIsAuthenticated(false);
+        setHasProfile(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+      setHasProfile(false);
     }
     
     setLoading(false);

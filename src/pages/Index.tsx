@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Welcome from './Welcome';
+import Navbar from '../components/Navbar';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -14,7 +15,12 @@ const Index = () => {
     }
   }, [navigate]);
 
-  return <Welcome />;
+  return (
+    <>
+      <Navbar />
+      <Welcome />
+    </>
+  );
 };
 
 export default Index;
