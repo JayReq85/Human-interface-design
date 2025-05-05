@@ -14,6 +14,8 @@ const Welcome = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [priceRange, setPriceRange] = useState('');
+  const [tempLocationFilter, setTempLocationFilter] = useState('');
+  const [tempPriceRange, setTempPriceRange] = useState('');
   
   // Extract unique locations from properties for the filter dropdown
   const availableLocations = [...new Set(properties.map(property => 
@@ -50,11 +52,19 @@ const Welcome = () => {
     return searchMatch && locationMatch && priceMatch;
   });
 
+  // Apply filters
+  const applyFilters = () => {
+    setLocationFilter(tempLocationFilter);
+    setPriceRange(tempPriceRange);
+  };
+
   // Clear all filters
   const clearFilters = () => {
     setSearchQuery('');
     setLocationFilter('');
     setPriceRange('');
+    setTempLocationFilter('');
+    setTempPriceRange('');
   };
 
   return (
@@ -109,7 +119,7 @@ const Welcome = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="flex flex-wrap gap-4 items-center justify-center">
             <div className="w-full md:w-auto">
-              <Select value={locationFilter} onValueChange={setLocationFilter}>
+              <Select value={tempLocationFilter} onValueChange={setTempLocationFilter}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
@@ -123,7 +133,7 @@ const Welcome = () => {
             </div>
             
             <div className="w-full md:w-auto">
-              <Select value={priceRange} onValueChange={setPriceRange}>
+              <Select value={tempPriceRange} onValueChange={setTempPriceRange}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder="Price Range" />
                 </SelectTrigger>
@@ -135,6 +145,15 @@ const Welcome = () => {
                 </SelectContent>
               </Select>
             </div>
+            
+            <Button 
+              variant="default" 
+              size="sm" 
+              className="w-full md:w-auto"
+              onClick={applyFilters}
+            >
+              Apply Filters
+            </Button>
             
             <Button 
               variant="outline" 
