@@ -13,13 +13,16 @@ interface PropertyCardProps {
 const PropertyCard = ({ property }: PropertyCardProps) => {
   const { toggleBookmark } = usePropertyContext();
 
+  // Ensure we have a valid image URL
+  const imageUrl = property.image || (property.images?.length > 0 ? property.images[0] : '/placeholder.svg');
+
   return (
     <Card className="card-hover overflow-hidden">
       <div className="relative">
         <img 
-          src={property.image || property.images[0]} 
+          src={imageUrl} 
           alt={property.name} 
-          className="property-image"
+          className="property-image object-cover w-full h-48"
         />
         <Button
           variant="ghost"

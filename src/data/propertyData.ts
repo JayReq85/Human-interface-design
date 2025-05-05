@@ -43,7 +43,7 @@ export const properties: Property[] = [
     size: 35,
     distance: 0.5,
     distanceUnit: 'km',
-    images: ['/placeholder.svg'],
+    images: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'],
     description: 'A cozy studio apartment perfect for students. Fully furnished with high-speed internet included.',
     facilities: ['Wi-Fi', 'Furnished', 'Washing Machine', 'Kitchen'],
     rating: 4.5,
@@ -72,7 +72,7 @@ export const properties: Property[] = [
     size: 20,
     distance: 0.2,
     distanceUnit: 'km',
-    images: ['/placeholder.svg'],
+    images: ['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop'],
     description: 'Shared room in the student village with access to common areas and meal plans.',
     facilities: ['Meal Plan', 'Laundry', 'Study Room', 'Wi-Fi'],
     rating: 4.0,
@@ -92,7 +92,7 @@ export const properties: Property[] = [
     size: 65,
     distance: 1.8,
     distanceUnit: 'km',
-    images: ['/placeholder.svg'],
+    images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2080&auto=format&fit=crop'],
     description: 'Modern apartment with high-end finishes, perfect for sharing with a roommate.',
     facilities: ['Balcony', 'Dishwasher', 'Gym Access', 'Parking'],
     rating: 4.8,
@@ -100,7 +100,7 @@ export const properties: Property[] = [
     isAvailable: true,
     featured: true
   },
-  // Additional 10 properties
+  // Additional properties with images
   {
     id: '4',
     title: 'Cozy 1-Bedroom Near Library',
@@ -113,7 +113,7 @@ export const properties: Property[] = [
     size: 40,
     distance: 0.7,
     distanceUnit: 'km',
-    images: ['/placeholder.svg'],
+    images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop'],
     description: 'Perfect student apartment located near the university library. Quiet neighborhood ideal for studying.',
     facilities: ['Wi-Fi', 'Study Desk', 'Washing Machine', 'Heating'],
     rating: 4.3,

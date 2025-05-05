@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,11 @@ const Welcome = () => {
   const [locationFilter, setLocationFilter] = useState('');
   const [priceRange, setPriceRange] = useState('');
   
+  // Extract unique locations from properties for the filter dropdown
+  const availableLocations = [...new Set(properties.map(property => 
+    property.location.split(',')[0].trim()
+  ))];
+  
   // Filter properties based on search query and filters
   const filteredProperties = properties.filter(property => {
     // Ensure property and its properties exist before accessing them
@@ -26,8 +32,10 @@ const Welcome = () => {
     const searchMatch = property.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                        property.location.toLowerCase().includes(searchQuery.toLowerCase());
     
-    // Location filter
-    const locationMatch = locationFilter ? property.location.includes(locationFilter) : true;
+    // Location filter - check if the location starts with the selected filter value
+    const locationMatch = locationFilter 
+      ? property.location.toLowerCase().startsWith(locationFilter.toLowerCase()) 
+      : true;
     
     // Price filter - updated ranges
     let priceMatch = true;
@@ -106,9 +114,10 @@ const Welcome = () => {
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Bangkok">Bangkok</SelectItem>
-                  <SelectItem value="Pathumthani">Pathumthani</SelectItem>
-                  <SelectItem value="Riverside">Riverside</SelectItem>
+                  <SelectItem value="">All Locations</SelectItem>
+                  {availableLocations.map((location, index) => (
+                    <SelectItem key={index} value={location}>{location}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -119,20 +128,13 @@ const Welcome = () => {
                   <SelectValue placeholder="Price Range" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="">All Prices</SelectItem>
                   <SelectItem value="low">Below 9,000 ฿</SelectItem>
                   <SelectItem value="medium">9,000 - 12,000 ฿</SelectItem>
                   <SelectItem value="high">Above 12,000 ฿</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="w-full md:w-auto"
-            >
-              Apply Filters
-            </Button>
             
             <Button 
               variant="outline" 

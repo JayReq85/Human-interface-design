@@ -117,18 +117,25 @@ interface PropertyProviderProps {
 
 export const PropertyProvider: React.FC<PropertyProviderProps> = ({ children }) => {
   // Map properties to ensure each property has a name field (using title as name)
-  const mappedProperties = initialProperties.map(property => ({
-    ...property,
-    name: property.title, // Set name equal to title
-    image: property.images[0] || '/placeholder.svg', // Ensure each property has an image field
-    // Add missing properties with default values
-    deposit: property.price * 2, // Default deposit as twice the monthly rent
-    utilities: {
-      internet: 500, // Default internet cost
-      electricity: 7, // Default electricity cost per unit
-      water: 18 // Default water cost per unit
-    }
-  }));
+  const mappedProperties = initialProperties.map(property => {
+    // Define an explicit placeholder image for each property
+    const propertyImages = property.images || [];
+    const defaultImage = propertyImages.length > 0 ? propertyImages[0] : '/placeholder.svg';
+    
+    return {
+      ...property,
+      name: property.title, // Set name equal to title
+      image: defaultImage, // Ensure each property has an image field
+      images: propertyImages.length > 0 ? propertyImages : [defaultImage], // Ensure images array is never empty
+      // Add missing properties with default values
+      deposit: property.deposit || (property.price * 2), // Default deposit as twice the monthly rent
+      utilities: property.utilities || {
+        internet: 500, // Default internet cost
+        electricity: 7, // Default electricity cost per unit
+        water: 18 // Default water cost per unit
+      }
+    };
+  });
 
   const [allProperties] = useState<Property[]>(mappedProperties);
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
