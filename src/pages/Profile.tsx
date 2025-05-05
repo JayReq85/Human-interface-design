@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,9 +10,13 @@ import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { UserRound, Lock, Bell, Edit } from 'lucide-react';
+import { UserRound, Lock, Bell, Edit, Calendar, MessageSquare } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useBookingContext, Booking } from '../context/BookingContext';
+import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import BookingDetail from '../components/BookingDetail';
 
 const profileSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -39,6 +43,8 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { bookings } = useBookingContext();
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
 
   const profileForm = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -125,6 +131,29 @@ const Profile = () => {
     setIsEditing(!isEditing);
   };
 
+  // Get status badge
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'pending':
+        return <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">Pending</Badge>;
+      case 'accepted':
+        return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Accepted</Badge>;
+      case 'rejected':
+        return <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">Rejected</Badge>;
+      default:
+        return <Badge variant="outline">Unknown</Badge>;
+    }
+  };
+
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   if (!user) return null;
 
   return (
@@ -134,8 +163,9 @@ const Profile = () => {
       <div className="flex-1 py-10 px-4">
         <div className="container mx-auto max-w-3xl">
           <Tabs defaultValue="profile">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="profile">Profile Information</TabsTrigger>
+              <TabsTrigger value="bookings">My Bookings</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>
               <TabsTrigger value="notifications">Notifications</TabsTrigger>
             </TabsList>
@@ -275,6 +305,68 @@ const Profile = () => {
                         </div>
                       </form>
                     </Form>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="bookings">
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Calendar className="text-primary" size={40} />
+                    </div>
+                  </div>
+                  <CardTitle className="text-2xl text-center">My Booking Requests</CardTitle>
+                  <CardDescription className="text-center">
+                    View and manage all your property booking requests
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {bookings.length > 0 ? (
+                    <div className="space-y-4">
+                      {bookings.map((booking) => (
+                        <div 
+                          key={booking.id}
+                          className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border rounded-lg hover:bg-gray-50"
+                        >
+                          <div className="mb-2 sm:mb-0">
+                            <h3 className="font-medium">{booking.propertyName}</h3>
+                            <p className="text-sm text-gray-500">
+                              <span>Move-in: {formatDate(booking.moveInDate)}</span>
+                            </p>
+                          </div>
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                            {getStatusBadge(booking.status)}
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={() => setSelectedBooking(booking)}
+                                >
+                                  View Details
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="sm:max-w-[600px]">
+                                {selectedBooking && (
+                                  <BookingDetail booking={selectedBooking} />
+                                )}
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <h3 className="text-lg font-medium mb-2">No booking requests yet</h3>
+                      <p className="text-gray-500 mb-6">You haven't made any booking requests for properties yet.</p>
+                      <Link to="/">
+                        <Button>Browse Properties</Button>
+                      </Link>
+                    </div>
                   )}
                 </CardContent>
               </Card>
