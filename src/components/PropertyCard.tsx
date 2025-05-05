@@ -14,7 +14,9 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
   const { toggleBookmark } = usePropertyContext();
 
   // Ensure we have a valid image URL
-  const imageUrl = property.image || (property.images?.length > 0 ? property.images[0] : '/placeholder.svg');
+  const imageUrl = property.images && property.images.length > 0 
+    ? property.images[0] 
+    : '/placeholder.svg';
 
   return (
     <Card className="card-hover overflow-hidden">
