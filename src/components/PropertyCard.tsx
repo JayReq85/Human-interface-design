@@ -17,7 +17,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
     <Card className="card-hover overflow-hidden">
       <div className="relative">
         <img 
-          src={property.image} 
+          src={property.image || property.images[0]} 
           alt={property.name} 
           className="property-image"
         />
@@ -50,7 +50,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           <span>Size: {property.size} m²</span>
           <div className="flex items-center">
             <Star className="text-yellow-400 mr-1" size={14} fill="currentColor" />
-            <span>{property.landlordRating.toFixed(1)}</span>
+            <span>{(property.landlordRating || property.rating).toFixed(1)}</span>
           </div>
         </div>
       </CardContent>

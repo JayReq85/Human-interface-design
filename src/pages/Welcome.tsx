@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -17,6 +16,12 @@ const Welcome = () => {
   
   // Filter properties based on search query and filters
   const filteredProperties = properties.filter(property => {
+    // Ensure property and its properties exist before accessing them
+    if (!property || !property.name || !property.location) {
+      console.error('Property missing required fields:', property);
+      return false;
+    }
+
     // Search filter
     const searchMatch = property.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                        property.location.toLowerCase().includes(searchQuery.toLowerCase());
