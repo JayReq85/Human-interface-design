@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PropertyProvider } from "./context/PropertyContext";
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Reviews from "./pages/Reviews";
 import Bookmarks from "./pages/Bookmarks";
+import UserTypeSelection from "./pages/UserTypeSelection";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -43,16 +44,17 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/login" element={<Login />} />
+              {/* Welcome page - entry point */}
+              <Route path="/welcome" element={<UserTypeSelection />} />
               
-              <Route 
-                path="/" 
-                element={
-                  <ProtectedRoute requireLogin={true} requireProfile={true}>
-                    <Index />
-                  </ProtectedRoute>
-                } 
-              />
+              {/* Redirect root to welcome page */}
+              <Route path="/" element={
+                <ProtectedRoute requireLogin={true} requireProfile={true}>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/login" element={<Login />} />
               
               <Route 
                 path="/profile" 

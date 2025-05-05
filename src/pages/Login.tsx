@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,8 +20,20 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [userType, setUserType] = useState<string | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user type is stored in localStorage
+    const storedUserType = localStorage.getItem('userType');
+    if (storedUserType) {
+      setUserType(storedUserType);
+    } else {
+      // Redirect to welcome page if no user type is selected
+      navigate('/welcome');
+    }
+  }, [navigate]);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -32,14 +44,12 @@ const Login = () => {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    // In a real app, you would validate against a backend
-    // For now, we'll simulate a successful login
-    
-    // Store user info in localStorage
+    // Store user info in localStorage including user type
     localStorage.setItem('user', JSON.stringify({
       email: data.email,
       isLoggedIn: true,
       profileCompleted: false,
+      userType: userType,
     }));
 
     toast({
@@ -57,6 +67,7 @@ const Login = () => {
         <CardHeader>
           <CardTitle className="text-2xl text-center">
             {isLoginMode ? "Login" : "Create Account"}
+            {userType && <span className="block text-sm text-primary mt-2">as {userType}</span>}
           </CardTitle>
           <CardDescription className="text-center">
             {isLoginMode 
@@ -122,6 +133,13 @@ const Login = () => {
             className="w-full"
           >
             {isLoginMode ? "Create Account" : "Login"}
+          </Button>
+          <Button 
+            variant="link" 
+            onClick={() => navigate('/welcome')}
+            className="text-xs"
+          >
+            Change user type
           </Button>
         </CardFooter>
       </Card>
