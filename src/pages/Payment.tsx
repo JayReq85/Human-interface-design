@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { usePropertyContext } from '../context/PropertyContext';
@@ -18,7 +17,8 @@ import { useToast } from "@/hooks/use-toast";
 
 const Payment = () => {
   const { id } = useParams();
-  const propertyId = parseInt(id || "0");
+  // Convert id to string directly, no parseInt needed
+  const propertyId = id || "";
   const { getProperty } = usePropertyContext();
   const property = getProperty(propertyId);
   const navigate = useNavigate();

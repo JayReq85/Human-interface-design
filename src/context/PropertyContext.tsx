@@ -27,6 +27,13 @@ export interface Property {
   landlordRating?: number; // For PropertyCard
   bookmarked?: boolean;
   image?: string; // For backwards compatibility
+  // Add missing properties
+  deposit: number;
+  utilities: {
+    internet: number;
+    electricity: number;
+    water: number;
+  };
 }
 
 export interface Review {
@@ -37,6 +44,12 @@ export interface Review {
   rating: number;
   comment: string;
   date: string;
+  // Add missing properties
+  guestType: string;
+  stayPeriod: string;
+  hygiene: number;
+  location: number;
+  service: number;
 }
 
 interface PropertyContextProps {
@@ -59,7 +72,12 @@ const initialReviews: Review[] = [
     userName: 'John Doe',
     rating: 4.5,
     comment: 'Great place, very clean and comfortable.',
-    date: '2023-04-15'
+    date: '2023-04-15',
+    guestType: 'Stayed',
+    stayPeriod: '< 1 year',
+    hygiene: 4.5,
+    location: 4.0,
+    service: 5.0
   },
   {
     id: '2',
@@ -68,7 +86,12 @@ const initialReviews: Review[] = [
     userName: 'Jane Smith',
     rating: 4.0,
     comment: 'Nice location, but a bit noisy at night.',
-    date: '2023-03-22'
+    date: '2023-03-22',
+    guestType: 'Currently',
+    stayPeriod: '> 1 year',
+    hygiene: 4.0,
+    location: 4.5,
+    service: 3.5
   },
   {
     id: '3',
@@ -77,7 +100,12 @@ const initialReviews: Review[] = [
     userName: 'Mike Johnson',
     rating: 5.0,
     comment: 'Excellent experience! Would definitely recommend.',
-    date: '2023-05-01'
+    date: '2023-05-01',
+    guestType: 'Stayed',
+    stayPeriod: '> 2 year',
+    hygiene: 5.0,
+    location: 5.0,
+    service: 5.0
   }
 ];
 
@@ -93,6 +121,13 @@ export const PropertyProvider: React.FC<PropertyProviderProps> = ({ children }) 
     ...property,
     name: property.title, // Set name equal to title
     image: property.images[0] || '/placeholder.svg', // Ensure each property has an image field
+    // Add missing properties with default values
+    deposit: property.price * 2, // Default deposit as twice the monthly rent
+    utilities: {
+      internet: 500, // Default internet cost
+      electricity: 7, // Default electricity cost per unit
+      water: 18 // Default water cost per unit
+    }
   }));
 
   const [allProperties] = useState<Property[]>(mappedProperties);

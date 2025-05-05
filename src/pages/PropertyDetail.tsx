@@ -22,7 +22,8 @@ import { useToast } from "@/hooks/use-toast";
 
 const PropertyDetail = () => {
   const { id } = useParams();
-  const propertyId = parseInt(id || "0");
+  // Convert id to string directly, no parseInt needed
+  const propertyId = id || "";
   const { getProperty, toggleBookmark, getReviews } = usePropertyContext();
   const property = getProperty(propertyId);
   const reviews = getReviews(propertyId);
@@ -167,13 +168,13 @@ const PropertyDetail = () => {
               <h2 className="text-lg font-semibold mb-3">Landlord Information</h2>
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-3">
-                  {property.landlordName.charAt(0)}
+                  {property.landlordName?.charAt(0) || "?"}
                 </div>
                 <div>
-                  <div className="font-medium">{property.landlordName}</div>
+                  <div className="font-medium">{property.landlordName || "Unknown"}</div>
                   <div className="flex items-center">
-                    <StarRating rating={property.landlordRating} readOnly={true} />
-                    <span className="ml-1 text-sm text-gray-500">({property.landlordRating.toFixed(1)})</span>
+                    <StarRating rating={property.landlordRating || 0} readOnly={true} />
+                    <span className="ml-1 text-sm text-gray-500">({(property.landlordRating || 0).toFixed(1)})</span>
                   </div>
                 </div>
               </div>

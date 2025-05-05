@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { usePropertyContext } from '../context/PropertyContext';
@@ -18,7 +17,8 @@ import { useToast } from "@/hooks/use-toast";
 
 const ReviewRating = () => {
   const { id } = useParams();
-  const propertyId = parseInt(id || "0");
+  // Convert id to string directly, no parseInt needed
+  const propertyId = id || "";
   const { getProperty, addReview } = usePropertyContext();
   const property = getProperty(propertyId);
   const navigate = useNavigate();
@@ -73,8 +73,9 @@ const ReviewRating = () => {
     
     // Add the review
     addReview({
-      id: 0, // Will be set by the context
       propertyId,
+      userId: "current-user", // Placeholder user ID
+      userName: "Current User", // Placeholder username
       rating,
       guestType,
       stayPeriod,

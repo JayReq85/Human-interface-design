@@ -1,4 +1,3 @@
-
 export interface Property {
   id: string;
   title: string;
@@ -20,7 +19,14 @@ export interface Property {
   featured?: boolean;
   landlordId?: string;
   landlordName?: string;
+  landlordRating?: number;
   bookmarked?: boolean;
+  deposit?: number;
+  utilities?: {
+    internet: number;
+    electricity: number;
+    water: number;
+  };
 }
 
 export const properties: Property[] = [
@@ -43,7 +49,15 @@ export const properties: Property[] = [
     rating: 4.5,
     reviewCount: 12,
     isAvailable: true,
-    featured: true
+    featured: true,
+    landlordName: 'John Smith',
+    landlordRating: 4.8,
+    deposit: 1100,
+    utilities: {
+      internet: 500,
+      electricity: 7,
+      water: 18
+    }
   },
   // Second property
   {
