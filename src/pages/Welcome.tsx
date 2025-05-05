@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -30,12 +29,12 @@ const Welcome = () => {
     // Location filter
     const locationMatch = locationFilter ? property.location.includes(locationFilter) : true;
     
-    // Price filter
+    // Price filter - updated ranges
     let priceMatch = true;
     if (priceRange === 'low') {
-      priceMatch = property.price < 7000;
+      priceMatch = property.price < 9000;
     } else if (priceRange === 'medium') {
-      priceMatch = property.price >= 7000 && property.price <= 12000;
+      priceMatch = property.price >= 9000 && property.price <= 12000;
     } else if (priceRange === 'high') {
       priceMatch = property.price > 12000;
     }
@@ -120,8 +119,8 @@ const Welcome = () => {
                   <SelectValue placeholder="Price Range" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="low">Below 7,000 ฿</SelectItem>
-                  <SelectItem value="medium">7,000 - 12,000 ฿</SelectItem>
+                  <SelectItem value="low">Below 9,000 ฿</SelectItem>
+                  <SelectItem value="medium">9,000 - 12,000 ฿</SelectItem>
                   <SelectItem value="high">Above 12,000 ฿</SelectItem>
                 </SelectContent>
               </Select>
