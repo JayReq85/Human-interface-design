@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -126,7 +127,11 @@ const Welcome = () => {
               </Select>
             </div>
             
-            <Button variant="default" size="sm" className="w-full md:w-auto">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="w-full md:w-auto"
+            >
               Apply Filters
             </Button>
             
@@ -167,7 +172,7 @@ const Welcome = () => {
       {/* Feature Section */}
       <div className="bg-secondary py-12 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold mb-8 text-center">Why Choose Our Platform</h2>
+          <h2 className="text-2xl font-bold mb-8 text-center text-[#E2A54D]">Why Choose Our Platform</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="bg-white">
