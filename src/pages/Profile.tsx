@@ -45,26 +45,21 @@ const Profile = () => {
       return;
     }
     
-    try {
-      const parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
-      
-      // Populate form with existing data if available
-      if (parsedUser.fullName) {
-        form.setValue('fullName', parsedUser.fullName);
-      }
-      if (parsedUser.phone) {
-        form.setValue('phone', parsedUser.phone);
-      }
-      if (parsedUser.address) {
-        form.setValue('address', parsedUser.address);
-      }
-      if (parsedUser.bio) {
-        form.setValue('bio', parsedUser.bio);
-      }
-    } catch (error) {
-      console.error("Error parsing user data:", error);
-      navigate('/login');
+    const parsedUser = JSON.parse(userData);
+    setUser(parsedUser);
+    
+    // Populate form with existing data if available
+    if (parsedUser.fullName) {
+      form.setValue('fullName', parsedUser.fullName);
+    }
+    if (parsedUser.phone) {
+      form.setValue('phone', parsedUser.phone);
+    }
+    if (parsedUser.address) {
+      form.setValue('address', parsedUser.address);
+    }
+    if (parsedUser.bio) {
+      form.setValue('bio', parsedUser.bio);
     }
   }, [navigate, form]);
 
@@ -84,7 +79,7 @@ const Profile = () => {
         description: "Your profile has been successfully updated",
       });
       
-      // Navigate to home page
+      // Explicitly navigate to home page
       navigate('/');
     }
   };
