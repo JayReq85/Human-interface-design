@@ -31,7 +31,7 @@ const Reviews = () => {
                     <CardHeader className="pb-2">
                       <CardTitle className="flex justify-between items-center">
                         <span>{property?.name || 'Unknown Property'}</span>
-                        <StarRating rating={review.rating} size="sm" />
+                        <StarRating rating={review.rating} size="sm" readOnly={true} />
                       </CardTitle>
                       <div className="text-sm text-muted-foreground">
                         {review.guestType} • {review.stayPeriod}
