@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,10 +15,10 @@
     --popover-foreground: 212 74% 16%;
 
     --primary: 212 74% 16%; /* #0c2c47 */
-    --primary-foreground: 142 32% 91%; /* #E4F2EA */
+    --primary-foreground: 35 75% 60%; /* #E2A54D */
 
     --secondary: 212 74% 10%;
-    --secondary-foreground: 142 32% 91%;
+    --secondary-foreground: 35 75% 60%; /* #E2A54D */
 
     --muted: 212 30% 86%;
     --muted-foreground: 212 50% 40%;
@@ -37,7 +38,7 @@
     --sidebar-background: 142 32% 91%;
     --sidebar-foreground: 212 74% 16%;
     --sidebar-primary: 212 74% 16%;
-    --sidebar-primary-foreground: 142 32% 91%;
+    --sidebar-primary-foreground: 35 75% 60%; /* #E2A54D */
     --sidebar-accent: 212 74% 92%;
     --sidebar-accent-foreground: 212 74% 16%;
     --sidebar-border: 212 74% 80%;
@@ -46,39 +47,39 @@
 
   .dark {
     --background: 212 74% 16%; /* #0c2c47 */
-    --foreground: 142 32% 91%; /* #E4F2EA */
+    --foreground: 35 75% 60%; /* #E2A54D */
 
     --card: 212 74% 16%;
-    --card-foreground: 142 32% 91%;
+    --card-foreground: 35 75% 60%; /* #E2A54D */
 
     --popover: 212 74% 16%;
-    --popover-foreground: 142 32% 91%;
+    --popover-foreground: 35 75% 60%; /* #E2A54D */
 
     --primary: 142 32% 91%;
     --primary-foreground: 212 74% 16%;
 
     --secondary: 212 74% 24%;
-    --secondary-foreground: 142 32% 91%;
+    --secondary-foreground: 35 75% 60%; /* #E2A54D */
 
     --muted: 212 74% 24%;
-    --muted-foreground: 212 40% 70%;
+    --muted-foreground: 35 75% 60%; /* #E2A54D */
 
     --accent: 212 74% 24%;
-    --accent-foreground: 142 32% 91%;
+    --accent-foreground: 35 75% 60%; /* #E2A54D */
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 142 32% 91%;
+    --destructive-foreground: 35 75% 60%; /* #E2A54D */
 
     --border: 212 74% 24%;
     --input: 212 74% 24%;
     --ring: 142 32% 85%;
 
     --sidebar-background: 212 74% 20%;
-    --sidebar-foreground: 142 32% 91%;
+    --sidebar-foreground: 35 75% 60%; /* #E2A54D */
     --sidebar-primary: 212 60% 50%;
-    --sidebar-primary-foreground: 142 32% 91%;
+    --sidebar-primary-foreground: 35 75% 60%; /* #E2A54D */
     --sidebar-accent: 212 74% 26%;
-    --sidebar-accent-foreground: 142 32% 91%;
+    --sidebar-accent-foreground: 35 75% 60%; /* #E2A54D */
     --sidebar-border: 212 74% 26%;
     --sidebar-ring: 212 60% 60%;
   }

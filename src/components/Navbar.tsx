@@ -34,42 +34,42 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white shadow-md px-4 py-3 flex justify-between items-center">
+    <div className="bg-primary shadow-md px-4 py-3 flex justify-between items-center">
       <div className="flex items-center">
-        <Link to="/" className="text-xl font-bold text-primary">
+        <Link to="/" className="text-xl font-bold text-primary-foreground">
           TU ACCOMMODATION
         </Link>
       </div>
       
       <div className="flex items-center space-x-4">
-        <Link to="/" className="flex flex-col items-center text-xs">
+        <Link to="/" className="flex flex-col items-center text-xs text-primary-foreground">
           <Home size={20} className="mb-1" />
           Home
         </Link>
         
         {isLoggedIn ? (
           <>
-            <Link to="/profile" className="flex flex-col items-center text-xs">
+            <Link to="/profile" className="flex flex-col items-center text-xs text-primary-foreground">
               <User size={20} className="mb-1" />
               Profile
             </Link>
-            <Link to="/bookmarks" className="flex flex-col items-center text-xs">
+            <Link to="/bookmarks" className="flex flex-col items-center text-xs text-primary-foreground">
               <Bookmark size={20} className="mb-1" />
               Bookmarks
             </Link>
-            <Link to="/reviews" className="flex flex-col items-center text-xs">
+            <Link to="/reviews" className="flex flex-col items-center text-xs text-primary-foreground">
               <Star size={20} className="mb-1" />
               Reviews
             </Link>
             
-            <div className="border-l pl-4 ml-2">
-              <div className="text-xs font-medium mb-1">
+            <div className="border-l border-primary-foreground/30 pl-4 ml-2">
+              <div className="text-xs font-medium mb-1 text-primary-foreground">
                 {username}
               </div>
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-xs h-8 px-2"
+                className="text-xs h-8 px-2 text-primary-foreground hover:text-primary-foreground/80"
                 onClick={handleLogout}
               >
                 Logout
@@ -77,7 +77,7 @@ const Navbar = () => {
             </div>
           </>
         ) : (
-          <Link to="/login" className="flex flex-col items-center text-xs">
+          <Link to="/login" className="flex flex-col items-center text-xs text-primary-foreground">
             <LogIn size={20} className="mb-1" />
             Login
           </Link>

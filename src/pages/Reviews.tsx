@@ -10,11 +10,11 @@ const Reviews = () => {
   const { reviews, getProperty } = usePropertyContext();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
       <div className="container mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold mb-6">All Reviews</h1>
+        <h1 className="text-2xl font-bold mb-6 text-foreground">All Reviews</h1>
         
         <Tabs defaultValue="all">
           <TabsList className="mb-4">
@@ -41,13 +41,13 @@ const Reviews = () => {
                       <p className="mb-2">{review.comment}</p>
                       
                       <div className="flex flex-wrap gap-3 mt-3 text-sm">
-                        <span className="bg-secondary rounded-full px-3 py-1">
+                        <span className="bg-secondary rounded-full px-3 py-1 text-secondary-foreground">
                           Hygiene: {review.hygiene}/5
                         </span>
-                        <span className="bg-secondary rounded-full px-3 py-1">
+                        <span className="bg-secondary rounded-full px-3 py-1 text-secondary-foreground">
                           Location: {review.location}/5
                         </span>
-                        <span className="bg-secondary rounded-full px-3 py-1">
+                        <span className="bg-secondary rounded-full px-3 py-1 text-secondary-foreground">
                           Service: {review.service}/5
                         </span>
                       </div>
