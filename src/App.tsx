@@ -15,6 +15,8 @@ import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Reviews from "./pages/Reviews";
+import Bookmarks from "./pages/Bookmarks";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -57,6 +59,24 @@ const App = () => {
                 element={
                   <ProtectedRoute requireLogin={true} requireProfile={false}>
                     <Profile />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/reviews" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={true}>
+                    <Reviews />
+                  </ProtectedRoute>
+                } 
+              />
+              
+              <Route 
+                path="/bookmarks" 
+                element={
+                  <ProtectedRoute requireLogin={true} requireProfile={true}>
+                    <Bookmarks />
                   </ProtectedRoute>
                 } 
               />

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
-import { CheckIcon, Search, MapPin, ArrowRight, Star } from 'lucide-react';
+import { CheckIcon, Search, MapPin, ArrowRight, Star, X } from 'lucide-react';
 import { usePropertyContext } from '@/context/PropertyContext';
 import PropertyCard from '@/components/PropertyCard';
 
@@ -37,6 +37,13 @@ const Welcome = () => {
     return searchMatch && locationMatch && priceMatch;
   });
 
+  // Clear all filters
+  const clearFilters = () => {
+    setSearchQuery('');
+    setLocationFilter('');
+    setPriceRange('');
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
@@ -54,6 +61,14 @@ const Welcome = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600"
+              >
+                <X size={18} />
+              </button>
+            )}
           </div>
           
           <div className="mt-8 flex flex-col md:flex-row gap-4 justify-center">
@@ -81,7 +96,7 @@ const Welcome = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="flex flex-wrap gap-4 items-center justify-center">
             <div className="w-full md:w-auto">
-              <Select onValueChange={setLocationFilter}>
+              <Select value={locationFilter} onValueChange={setLocationFilter}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
@@ -94,7 +109,7 @@ const Welcome = () => {
             </div>
             
             <div className="w-full md:w-auto">
-              <Select onValueChange={setPriceRange}>
+              <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder="Price Range" />
                 </SelectTrigger>
@@ -108,6 +123,15 @@ const Welcome = () => {
             
             <Button variant="default" size="sm" className="w-full md:w-auto">
               Apply Filters
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="w-full md:w-auto"
+              onClick={clearFilters}
+            >
+              Clear Filters
             </Button>
           </div>
         </div>
@@ -127,7 +151,7 @@ const Welcome = () => {
           <Card>
             <CardContent className="py-10 text-center">
               <p className="text-gray-500">No properties found matching your criteria.</p>
-              <Button variant="link" onClick={() => {setSearchQuery(''); setLocationFilter(''); setPriceRange('');}}>
+              <Button variant="link" onClick={clearFilters}>
                 Clear filters
               </Button>
             </CardContent>

@@ -27,17 +27,6 @@ const Profile = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if user is logged in
-    const userData = localStorage.getItem('user');
-    if (!userData) {
-      navigate('/login');
-      return;
-    }
-    
-    setUser(JSON.parse(userData));
-  }, [navigate]);
-
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -47,6 +36,32 @@ const Profile = () => {
       bio: "",
     },
   });
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = localStorage.getItem('user');
+    if (!userData) {
+      navigate('/login');
+      return;
+    }
+    
+    const parsedUser = JSON.parse(userData);
+    setUser(parsedUser);
+    
+    // Populate form with existing data if available
+    if (parsedUser.fullName) {
+      form.setValue('fullName', parsedUser.fullName);
+    }
+    if (parsedUser.phone) {
+      form.setValue('phone', parsedUser.phone);
+    }
+    if (parsedUser.address) {
+      form.setValue('address', parsedUser.address);
+    }
+    if (parsedUser.bio) {
+      form.setValue('bio', parsedUser.bio);
+    }
+  }, [navigate, form]);
 
   const onSubmit = (data: ProfileFormValues) => {
     // Update user data with profile information
@@ -64,6 +79,7 @@ const Profile = () => {
         description: "Your profile has been successfully updated",
       });
       
+      // Explicitly navigate to home page
       navigate('/');
     }
   };
