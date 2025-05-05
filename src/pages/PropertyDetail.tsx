@@ -19,6 +19,8 @@ import {
 import Navbar from '../components/Navbar';
 import StarRating from '../components/StarRating';
 import { useToast } from "@/hooks/use-toast";
+import BookingRequestForm from '../components/BookingRequestForm';
+import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -30,6 +32,7 @@ const PropertyDetail = () => {
   const { toast } = useToast();
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [openBookingDialog, setOpenBookingDialog] = useState(false);
   
   // Mock multiple images for the property
   const images = [
@@ -183,9 +186,18 @@ const PropertyDetail = () => {
                 <Link to={`/review/${property.id}`} className="w-full">
                   <Button className="w-full mb-3">Review Property</Button>
                 </Link>
-                <Link to={`/payment/${property.id}`} className="w-full">
-                  <Button variant="outline" className="w-full">Proceed to Payment</Button>
-                </Link>
+                <Dialog open={openBookingDialog} onOpenChange={setOpenBookingDialog}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="w-full">Request Booking</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px]">
+                    <BookingRequestForm 
+                      propertyId={property.id}
+                      propertyName={property.name}
+                      onSuccess={() => setOpenBookingDialog(false)}
+                    />
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </div>
