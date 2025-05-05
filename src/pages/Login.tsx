@@ -48,7 +48,7 @@ const Login = () => {
     localStorage.setItem('user', JSON.stringify({
       email: data.email,
       isLoggedIn: true,
-      profileCompleted: false,
+      profileCompleted: isLoginMode ? true : false, // Existing users have complete profiles
       userType: userType,
     }));
 

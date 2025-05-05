@@ -47,7 +47,7 @@ const App = () => {
               {/* Welcome page - entry point */}
               <Route path="/welcome" element={<UserTypeSelection />} />
               
-              {/* Redirect root to welcome page */}
+              {/* Redirect root to index page */}
               <Route path="/" element={
                 <ProtectedRoute requireLogin={true} requireProfile={true}>
                   <Index />
@@ -110,6 +110,7 @@ const App = () => {
                 } 
               />
               
+              {/* Redirect root to welcome page if not logged in */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
