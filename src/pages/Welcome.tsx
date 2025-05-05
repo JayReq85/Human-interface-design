@@ -114,7 +114,7 @@ const Welcome = () => {
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Locations</SelectItem>
+                  <SelectItem value="all">All Locations</SelectItem>
                   {availableLocations.map((location, index) => (
                     <SelectItem key={index} value={location}>{location}</SelectItem>
                   ))}
@@ -128,7 +128,7 @@ const Welcome = () => {
                   <SelectValue placeholder="Price Range" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Prices</SelectItem>
+                  <SelectItem value="all">All Prices</SelectItem>
                   <SelectItem value="low">Below 9,000 ฿</SelectItem>
                   <SelectItem value="medium">9,000 - 12,000 ฿</SelectItem>
                   <SelectItem value="high">Above 12,000 ฿</SelectItem>
