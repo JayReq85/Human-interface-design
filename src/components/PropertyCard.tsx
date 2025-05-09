@@ -56,9 +56,9 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
           <div className="flex items-center gap-2">
             <div className="flex items-center">
               <Star className="text-yellow-400 mr-1" size={14} fill="currentColor" />
-              <span>{(property.landlordRating || property.rating).toFixed(1)}</span>
+              <span>{(property.rating).toFixed(1)}</span>
             </div>
-            {property.landlordVerified && (
+            {property.verified && (
               <div className="flex items-center text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full text-xs">
                 <Check className="h-3 w-3 mr-0.5" />
                 <span>Verified</span>
