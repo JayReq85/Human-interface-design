@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [userType, setUserType] = useState('');
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -18,6 +19,7 @@ const Navbar = () => {
       const user = JSON.parse(userData);
       setIsLoggedIn(user.isLoggedIn);
       setUsername(user.fullName || user.email);
+      setUserType(user.userType || '');
     }
   }, []);
 
@@ -55,7 +57,7 @@ const Navbar = () => {
             </Link>
             <Link to="/bookmarks" className="flex flex-col items-center text-xs text-primary-foreground">
               <Bookmark size={20} className="mb-1" />
-              Bookmarks
+              {userType === 'landlord' ? 'Requests' : 'Bookmarks'}
             </Link>
             <Link to="/reviews" className="flex flex-col items-center text-xs text-primary-foreground">
               <Star size={20} className="mb-1" />
