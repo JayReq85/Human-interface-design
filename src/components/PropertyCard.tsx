@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Bookmark, Star } from 'lucide-react';
+import { Bookmark, Star, Check } from 'lucide-react';
 import { usePropertyContext, Property } from '../context/PropertyContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -53,9 +53,17 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       <CardContent className="py-2">
         <div className="flex justify-between text-sm">
           <span>Size: {property.size} m²</span>
-          <div className="flex items-center">
-            <Star className="text-yellow-400 mr-1" size={14} fill="currentColor" />
-            <span>{(property.landlordRating || property.rating).toFixed(1)}</span>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center">
+              <Star className="text-yellow-400 mr-1" size={14} fill="currentColor" />
+              <span>{(property.landlordRating || property.rating).toFixed(1)}</span>
+            </div>
+            {property.landlordVerified && (
+              <div className="flex items-center text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full text-xs">
+                <Check className="h-3 w-3 mr-0.5" />
+                <span>Verified</span>
+              </div>
+            )}
           </div>
         </div>
       </CardContent>
